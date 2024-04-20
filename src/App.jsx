@@ -6,9 +6,24 @@ function App() {
 
   const [users, setUsers] = useState([]);
 
-  const handleLoginChatGPT = (e) => {
-    e.preventDefault();
-    // You can add your login logic here
+  const handleLoginChatGPT = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const userName = form.username.value;
+    const password = form.password.value;
+    const userInfo = { userName, password }
+    console.log(userInfo)
+    fetch('http://localhost:5000/users', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(userInfo)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("inside fetch", data)
+      })
   };
   const handleLoginCopilot = (e) => {
     e.preventDefault();
